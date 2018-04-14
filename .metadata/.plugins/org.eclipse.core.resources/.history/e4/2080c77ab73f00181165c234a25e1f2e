@@ -1,0 +1,18 @@
+package demo;
+
+public class Processor extends Thread{
+	
+	public void run(){
+		while(true){
+			System.out.println("Hello");
+			Thread.sleep(100);
+		}
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,16 @@
+package demo1;
+
+
+	class Runner extends Threads{
+		
+	}
+public class App {
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
