@@ -1,0 +1,80 @@
+package demo;
+
+import java.util.*;
+
+
+
+public class Worker {
+
+	Random random = new Random();
+	private Object lock1= new Object();
+	private Object lock2= new Object();
+	
+	private List<Integer> list1= new ArrayList<>();
+	private List<Integer> list2= new ArrayList<>();
+	
+	
+	public void worker1() throws InterruptedException{
+		synchronized (lock1) {
+			Thread.sleep(1);
+			list1.add(random.nextInt(100));
+		}
+	}
+	
+	public void worker2() throws InterruptedException{
+		synchronized (lock2) {
+			Thread.sleep(1);
+			list2.add(random.nextInt(100));
+		}
+	}
+	
+	
+	public  synchronized void process() throws InterruptedException{	
+		for(int i=0;i<1000;i++){
+			worker1();
+			worker2();
+		}
+	}
+	
+	
+	public void call() throws InterruptedException{
+		long start= System.currentTimeMillis();
+		
+		Thread t1= new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					process();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		Thread t2= new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					process();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		t1.start();
+		t2.start();
+		
+		
+		t1.join();
+		t2.join();
+		long end= System.currentTimeMillis();
+		System.out.println("timetaken: "+(end-start));
+		System.out.println(list1.size()+" "+list2.size());
+	}
+	
+}

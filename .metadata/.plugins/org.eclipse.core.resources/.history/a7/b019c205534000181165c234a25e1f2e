@@ -1,0 +1,10 @@
+package demo;
+
+import java.util.*;
+
+public class Worker {
+
+	
+	private List<Integer> list= new ArrayList<>();
+	
+}
